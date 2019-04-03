@@ -4,6 +4,16 @@
   
 }
 
+.btn{
+  color: 'red';
+}
+
+.container{
+  width: 50%;
+  height: 50%;
+  margin: 20px auto;
+}
+
 body{
   font-family: "serif";
   line-height: 1.4;  

@@ -3,30 +3,49 @@ import PropTypes from 'prop-types'
 
 export default class Item extends Component {
   
+  //arrow function to set the style 
   setStyle = () =>{
-     
-    return { 
-      
+    return {    
       border: '1px solid black', 
       backgroundColor:'#f4f4f4',
-      display: this.props.task.completed ? 'none' : null
+      color: this.props.task.completed ? 'red' : null
     }
   }
 
+  
+
   render() {
+
+    
+    //destructuring for easy access of variables
+    const {id , task} = this.props.task;
+
     return (
+      //sets the style usinf setStyle()
       <div style={this.setStyle()}>
-
-        <p> 
-          {`${this.props.task.task}`}
-          <input type="checkbox"></input>
+        <p>
+          {`${task}`}
+          <input type="checkbox" 
+            onChange= { this.props.change.bind(this,id) } />
+            <button style={btnStyle} onClick= { this.props.delete.bind(this,id) }>D</button>
         </p>
-
       </div>
     )
+    
   }
 }
 
+const btnStyle = {
+  height:'20px',
+  width:'20px',
+  cursor:'pointer',
+  float:'right',
+  marginLeft:'20%',
+  backgroundColor:'red',
+  border:'red',
+  borderRadius: '50%'
+
+}
 
 /* variable method to assign classes
 const style = {
