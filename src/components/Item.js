@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Timer from './Timer';
+
 
 export default class Item extends Component {
   
@@ -16,7 +18,6 @@ export default class Item extends Component {
 
   render() {
 
-    
     //destructuring for easy access of variables
     const {id , task} = this.props.task;
 
@@ -27,8 +28,14 @@ export default class Item extends Component {
           {`${task}`}
           <input type="checkbox" 
             onChange= { this.props.change.bind(this,id) } />
-            <button style={btnStyle} onClick= { this.props.delete.bind(this,id) }>D</button>
+
+            <button style={btnStyle} onClick= { this.props.delete.bind(this,id) }>
+              D
+            </button>  
         </p>
+
+        <Timer setTime={(send) => this.props.setTime(send)} keyId= {id}/>
+        
       </div>
     )
     

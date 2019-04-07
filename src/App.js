@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router , Route} from 'react-router-dom'
 import './App.css'
 import uuid from 'uuid'
 import Todos from './components/Todos'
-import Header from './components/layout/Header'
+import Header from './components/Header'
 import AddItem from './components/AddItem'
+import About from './components/About';
 
 class App extends Component {
 
@@ -15,22 +17,26 @@ class App extends Component {
       {
         id:uuid.v4(),
         task:'make the react app',
+        time:'10:00',
         completed:false
       },
       {
         id:uuid.v4(),
         task:'making decision',
+        time:'13:10',
         completed:false
       },
       {
         id:uuid.v4(),
         task:'learn react from FCC',
+        time:'11:90',
         completed: false
       }
     ]
   }
 
   change=(id)=>{
+
     this.setState({ tasks: this.state.tasks.map((obj)=>{
       if(obj.id === id){
         obj.completed = !obj.completed;
@@ -57,18 +63,35 @@ class App extends Component {
     this.setState( {tasks : 
       this.state.tasks.filter((obj)=> obj.id !== id)
   })
-}
+  }
+
+  setTime = (send)=> {
+    console.log("time:",send)
+  }
  
   render() {
     //console.log(this.state.tasks)
     return (
       <div className="container">
+           
+        <Router>
         <Header/>
-        <AddItem addItem={this.AddTodo} />
-        <Todos rep={this.state.tasks} 
-               change={this.change}
-               delete={this.delete}
-        />
+        <Route exact path='/' render = {props => (
+          
+          <React.Fragment>
+            <AddItem addItem={this.AddTodo} />
+            <Todos rep={this.state.tasks} 
+                 change={this.change}
+                 delete={this.delete}
+                 setTime={(send)=>this.setTime(send)}
+            />
+          </React.Fragment>
+
+        )}/>
+
+        <Route path="/about" component={About}/>
+
+        </Router>
       </div>
     );
   }

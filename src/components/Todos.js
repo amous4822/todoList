@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 class Todos extends Component {
 
-  
 //id is passed so that it can directly jump to the edited list
 //and update it rather than comparing all entries from the
 //previous list
@@ -13,10 +12,11 @@ class Todos extends Component {
     return (
         this.props.rep.map((todo) =>
         (
-            <Item key= {todo.id} 
-                  task= {todo} 
+            <Item key = {todo.id} 
+                  task = {todo} 
                   change = {this.props.change}
                   delete = {this.props.delete }
+                  setTime={this.props.setTime}
             />
         ))
     )
