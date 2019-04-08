@@ -4,12 +4,12 @@ import React from 'react'
 
 class Timer extends React.Component {
 
-    // constructor(props){
-    //     super(props)
+    constructor(props){
+        super(props)
 
-    //     const key = "container"+ this.props.keyId;
-    //     setupKey(key)
-    // }
+        this.key = "container"+ this.props.keyId;
+        
+    }
 
 
 
@@ -18,11 +18,14 @@ class Timer extends React.Component {
         return(
             <React.Fragment>
 
-                <div id={"container"+ this.props.keyId} contentEditable="true">
+                <div id={"container"+ this.props.keyId} suppressContentEditableWarning={true} contentEditable="true">
+                    {this.props.setTime}
                 </div>
                 
                 <button onClick={() => start(this.props.keyId)}>start</button>
-                <button onClick={() => stop()}>stop</button>
+                <button onClick={() => {stop()
+                    this.props.updateTime(document.getElementById(this.key).textContent, this.props.keyId)
+                    }}>stop</button>
 
             </React.Fragment>
         )
@@ -52,7 +55,6 @@ function validateFormat(text){
 
 function start (id) {
 
-    console.log(id)
 
     const key = "container"+ id;
 
@@ -70,7 +72,7 @@ function start (id) {
     validateTime()
     
     if(time === null && flag===1){
-        time = setInterval(timer,10)
+        time = setInterval(timer,10);
     }
 }
 
@@ -87,13 +89,13 @@ function validateTime() {
     }
 }
     
+//stop called anytime. so put a check using id.
 function stop () {
     
     if(time!==null){
         clearInterval(time)
         time=null;
     }        
-    
 }
 
 function timer () {

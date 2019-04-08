@@ -51,6 +51,7 @@ class App extends Component {
     const newTodo = {
       id:uuid.v4(),
       task,
+      time:'11:90',
       completed:false
     }
 
@@ -65,8 +66,18 @@ class App extends Component {
   })
   }
 
-  setTime = (send)=> {
-    console.log("time:",send)
+  setTime = (time, id)=> {
+
+    this.setState({ tasks : this.state.tasks.map((obj) => {
+      if(obj.id === id){
+        obj.time = time
+        
+      }
+      return obj;
+      
+    })})
+
+    console.log(this.state.tasks)
   }
  
   render() {
@@ -83,7 +94,7 @@ class App extends Component {
             <Todos rep={this.state.tasks} 
                  change={this.change}
                  delete={this.delete}
-                 setTime={(send)=>this.setTime(send)}
+                 setTime={(send,id)=>this.setTime(send,id)}
             />
           </React.Fragment>
 

@@ -7,6 +7,7 @@ export default class Item extends Component {
   
   //arrow function to set the style 
   setStyle = () =>{
+    
     return {    
       border: '1px solid black', 
       backgroundColor:'#f4f4f4',
@@ -19,22 +20,27 @@ export default class Item extends Component {
   render() {
 
     //destructuring for easy access of variables
-    const {id , task} = this.props.task;
+    const {id , task,time} = this.props.task;
 
     return (
       //sets the style usinf setStyle()
+      
       <div style={this.setStyle()}>
         <p>
           {`${task}`}
           <input type="checkbox" 
-            onChange= { this.props.change.bind(this,id) } />
+            onChange= {this.props.change.bind(this,id)} />
 
             <button style={btnStyle} onClick= { this.props.delete.bind(this,id) }>
               D
             </button>  
         </p>
 
-        <Timer setTime={(send) => this.props.setTime(send)} keyId= {id}/>
+        <Timer updateTime={(send,is) => this.props.setTime(send,is)} 
+          keyId= {id}
+          setTime = {time}
+
+        />
         
       </div>
     )
